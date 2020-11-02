@@ -1,0 +1,35 @@
+python3 mynslookup.py www.google.com
+python3 mynslookup.py www.amazon.com
+python3 mynslookup.py -type=ns google.com
+python3 mynslookup.py -type=mx google.com
+python3 mynslookup.py -query=cname www.amazon.com
+python3 mynslookup.py -type=aaaa www.google.com
+python3 mynslookup.py -query=a www.google.com
+python3 mynslookup.py -type=ptr 8.8.8.8
+python3 mynslookup.py -type=ptr 2404:6800:4009:802::200e
+python3 mynslookup.py www.google.com 8.8.8.8
+python3 mynslookup.py www.google.com dns.google.
+python3 mynslookup.py 8.8.8.8
+python3 mynslookup.py 2404:6800:4009:802::200e
+python3 mynslookup.py -timeout=2 -port=56 www.google.com
+python3 mynslookup.py -type=ns -type=mx google.com
+python3 mynslookup.py -query=any amazon.com
+
+
+> set all
+> set type=a
+> set type=aaaa
+> set querytype=cname
+> set querytype=mx
+> set querytype=NS
+> set type=PTR
+> set type=any
+> www.google.com
+> 8.8.8.8
+> 2404:6800:4009:802::200e
+> server 8.8.8.8
+> lserver 8.8.8.8
+> set timeout=10
+> set port=56
+> set recurse
+> set norecurse
