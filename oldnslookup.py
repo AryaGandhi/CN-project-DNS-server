@@ -11,8 +11,7 @@ with open('/etc/resolv.conf','r') as fh:
 			server = line[11:len(line)-1]
 			break
 
-server = '127.0.0.1'
-port = 12000
+port = 53
 query = '0001'
 dnsserver = ''
 timeout = 10
@@ -23,7 +22,6 @@ def send_udp_message(message, address, port, timeout):
 	clientsocket.settimeout(timeout)
 	try:
 		clientsocket.sendto(binascii.unhexlify(message), (address, port))
-		clientsocket.sendto(str(timeout).encode(), (address, port))
 		data, _ = clientsocket.recvfrom(4096)
 	except socket.timeout:
 		return None
@@ -83,8 +81,6 @@ def find_ip(url, server, port, timeout, query):
 	if QQtype_hex == '0001' or QQtype_hex == '0005':		# for types a and cname
 		query2_hex = QQname + '0001' + QQclass_hex		
 		message = query1_hex + query2_hex
-		#if server != '127.0.0.1' and port == 12000:
-		#	port = 53
 		response = send_udp_message(message, server, port, timeout)
 		
 		if response == None:
@@ -281,8 +277,6 @@ def find_ip(url, server, port, timeout, query):
 		if response == None:
 			return None, None, None, None
 		
-		if response[len(message)+4:len(message)+8] == '0006':
-			response = message
 		Rcode = int(response[7])
 		error = error_condition(Rcode)
 		res_binary = ''
@@ -476,7 +470,6 @@ else:
 	master = 0
 	atype = 0
 	command_line = sys.argv[1:]
-	print('> python3 mynslookup.py', *command_line)
 	for arg in command_line:
 		if arg[0] == '-':
 			if arg[1:5] == 'port':
@@ -519,15 +512,11 @@ else:
 						print(";; connection timed out; no servers could be reached\n")
 						exit()
 					server = IP_list[0][0]
-					if port == 12000:
-						port = 53
 				else:
 					search_url = arg
 			if i == 0:
 				if search_url != '':
 					server = arg
-					if port == 12000:
-						port = 53
 				else:
 					if "." in arg:
 						search_url = ".".join((arg.split("."))[::-1]) + ".in-addr.arpa"
@@ -548,7 +537,6 @@ if mode == 0:
 
 while mode == 0:
 	arg = input('> ')
-	print(arg)
 	if arg == 'exit':
 		print("")
 		break
@@ -644,15 +632,13 @@ while mode == 0:
 	if arg[0:6] == 'server':
 		if arg[7:].replace(".", "").isnumeric() == False:
 			dnsserver = arg[7:]
-			IP_list, canonical_list, error, RAA = find_ip(dnsserver, '127.0.0.1', 12000, timeout, query)
+			IP_list, canonical_list, error, RAA = find_ip(dnsserver, '127.0.0.53', port, timeout, query)
 			if IP_list == None and RAA == None:
 				print(";; connection timed out; no servers could be reached\n")
 				continue
 			server = IP_list[0][0]
 		else:
 			server = arg[7:]
-		if port == 12000:
-			port = 53
 		print("Default server: " + server + "\nAddress: " + server + "#" + str(port))
 		continue		
 	if arg[0:7] == 'lserver':
@@ -665,8 +651,6 @@ while mode == 0:
 			server = IP_list[0][0]
 		else:
 			server = arg[7:]
-		if port == 12000:
-			port = 53
 		print("Default server: " + server + "\nAddress: " + server + "#" + str(port))
 		continue
 	else:
@@ -897,3 +881,4 @@ if mode == 1:
 				print("Name: " + IP[1])
 			print("Address: " + IP[0])
 	print("")
+

@@ -1,1 +1,2 @@
-create cache
+set timeout for connection in dnsserver.py(where dnsserver.py acts as a client). Figure out how to query for ports other than 53 or 12000(maybe will have to query from mynslookup.py directly to some server other than dnsserver.py using the entered port number)
+query to server set by user(other than the default)

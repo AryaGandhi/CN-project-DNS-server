@@ -1,0 +1,26 @@
+set all
+8.8.8.8
+set type=a
+www.google.com
+set type=aaaa
+www.youtube.com
+nonexistingwebsitename
+set querytype=cname
+www.amazon.com
+set querytype=mx
+google.com
+set querytype=NS
+google.com
+set type=PTR
+2404:6800:4009:802::200e
+set type=any
+google.com
+set timeout=10
+set norecurse
+www.google.com
+set recurse
+www.google.com
+server 8.8.4.4
+lserver 8.8.4.4
+set port=56
+exit
