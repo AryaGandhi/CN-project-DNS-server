@@ -8,13 +8,13 @@ Run the server in one terminal by typing the command 'python3 dnsserver.py'. On 
 
 ### Functions implemented ###
 1. Types of queries:
-  * a
-  * aaaa
-  * cname
-  * ns
-  * mx
-  * ptr
-  * any
+   * a
+   * aaaa
+   * cname
+   * ns
+   * mx
+   * ptr
+   * any
 2. inverse(reverse) queries
 3. set a server other than the default.
 4. set a port number other than the default.
