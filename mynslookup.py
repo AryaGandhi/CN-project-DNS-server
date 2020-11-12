@@ -3,14 +3,6 @@ import socket
 import sys
 import ipaddress
 
-with open('/etc/resolv.conf','r') as fh:
-	for line in fh:
-		if line.startswith("#") or line.startswith("\n"):
-			continue
-		else:
-			server = line[11:len(line)-1]
-			break
-
 server = '127.0.0.1'
 port = 12000
 query = '0001'
@@ -83,8 +75,6 @@ def find_ip(url, server, port, timeout, query):
 	if QQtype_hex == '0001' or QQtype_hex == '0005':		# for types a and cname
 		query2_hex = QQname + '0001' + QQclass_hex		
 		message = query1_hex + query2_hex
-		#if server != '127.0.0.1' and port == 12000:
-		#	port = 53
 		response = send_udp_message(message, server, port, timeout)
 		
 		if response == None:

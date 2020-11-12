@@ -28,7 +28,6 @@ while True:
 	tim, _ = serverSocket.recvfrom(1024)
 	timeout = int(tim.decode())
 	message = binascii.hexlify(msg).decode("utf-8")
-	#print(message)
 	
 	data = ''
 	if newlist != []:
@@ -57,7 +56,6 @@ while True:
 	
 	serverSocket.sendto(data, clientAddress)
 	response = binascii.hexlify(data).decode("utf-8")
-	#print(response)
 	
 	if flag == 1:
 		if len(response) != len(message) and message[-8:-4] != '000c':

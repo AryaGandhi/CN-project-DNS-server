@@ -2,11 +2,11 @@ set all
 8.8.8.8
 set type=a
 www.google.com
+set querytype=cname
+www.amazon.com
 set type=aaaa
 www.youtube.com
 nonexistingwebsitename
-set querytype=cname
-www.amazon.com
 set querytype=mx
 google.com
 set querytype=NS
@@ -21,6 +21,7 @@ www.google.com
 set recurse
 www.google.com
 server 8.8.4.4
+www.google.com
 lserver 8.8.4.4
 set port=56
 exit
